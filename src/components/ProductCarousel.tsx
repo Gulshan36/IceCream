@@ -48,15 +48,15 @@ const ProductCarousel = ({ category, onClose }: ProductCarouselProps) => {
   }, [emblaApi]);
 
   return (
-    <div className="w-full bg-gradient-to-br from-primary via-secondary to-accent rounded-3xl overflow-hidden shadow-2xl animate-fade-in">
+    <div className="w-full bg-gradient-to-br from-primary via-secondary to-accent rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl animate-scale-in border-4 border-white/20 backdrop-blur-sm">
       {/* Close Button */}
       <Button
         variant="ghost"
         size="icon"
         onClick={onClose}
-        className="absolute right-4 top-4 z-50 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0"
+        className="absolute right-3 top-3 md:right-4 md:top-4 z-50 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/30 backdrop-blur-md hover:bg-white/40 text-white border border-white/30 shadow-lg transition-all"
       >
-        <X className="w-6 h-6" />
+        <X className="w-5 h-5 md:w-6 md:h-6" />
       </Button>
 
       {/* Carousel */}
@@ -65,10 +65,10 @@ const ProductCarousel = ({ category, onClose }: ProductCarouselProps) => {
           <div className="flex">
             {category.products.map((product, index) => (
               <div key={index} className="flex-[0_0_100%] min-w-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-12 md:p-16 min-h-[500px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-8 md:p-12 lg:p-16 min-h-[400px] md:min-h-[500px]">
                   {/* Left Content */}
-                  <div className="flex flex-col justify-center space-y-6 text-white">
-                    <h2 className="text-4xl md:text-6xl font-bold leading-tight">
+                  <div className="flex flex-col justify-center space-y-4 md:space-y-6 text-white">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
                       {product.name}
                     </h2>
                     <div className="flex gap-2">
@@ -81,16 +81,18 @@ const ProductCarousel = ({ category, onClose }: ProductCarouselProps) => {
                         />
                       ))}
                     </div>
-                    <p className="text-2xl md:text-3xl font-semibold">
-                      {product.price}
-                    </p>
+                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 md:px-6 py-2 md:py-3 w-fit shadow-lg">
+                      <p className="text-xl md:text-2xl lg:text-3xl font-bold">
+                        {product.price}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Right Product Image */}
-                  <div className="flex items-center justify-center">
-                    <div className="relative w-full max-w-md">
-                      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl"></div>
-                      <div className="relative bg-gradient-to-br from-white/20 to-white/10 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm">
+                  <div className="flex items-center justify-center p-4">
+                    <div className="relative w-full max-w-sm md:max-w-md">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl md:rounded-3xl blur-xl"></div>
+                      <div className="relative bg-gradient-to-br from-white/15 to-white/5 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-2xl backdrop-blur-md border border-white/20">
                         <img 
                           src={product.image} 
                           alt={product.name}
@@ -110,29 +112,29 @@ const ProductCarousel = ({ category, onClose }: ProductCarouselProps) => {
           variant="ghost"
           size="icon"
           onClick={scrollPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/30 backdrop-blur-md hover:bg-white/40 text-white border border-white/30 shadow-xl transition-all"
         >
-          <ChevronLeft className="w-8 h-8" />
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
         </Button>
 
         <Button
           variant="ghost"
           size="icon"
           onClick={scrollNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/30 backdrop-blur-md hover:bg-white/40 text-white border border-white/30 shadow-xl transition-all"
         >
-          <ChevronRight className="w-8 h-8" />
+          <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
         </Button>
 
         {/* Dots Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 bg-white/20 backdrop-blur-md rounded-full px-4 py-2 border border-white/30 shadow-lg">
           {category.products.map((_, index) => (
             <button
               key={index}
               onClick={() => emblaApi?.scrollTo(index)}
               className={`h-2 rounded-full transition-all ${
                 index === selectedIndex 
-                  ? "bg-white w-8" 
+                  ? "bg-white w-8 shadow-md" 
                   : "bg-white/50 hover:bg-white/70 w-2"
               }`}
               aria-label={`Go to product ${index + 1}`}
@@ -141,7 +143,7 @@ const ProductCarousel = ({ category, onClose }: ProductCarouselProps) => {
         </div>
 
         {/* Counter */}
-        <div className="absolute bottom-8 right-8 text-white text-sm font-medium">
+        <div className="absolute bottom-6 md:bottom-8 right-4 md:right-8 text-white text-xs md:text-sm font-semibold bg-white/20 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/30 shadow-lg">
           {selectedIndex + 1} / {category.products.length}
         </div>
       </div>

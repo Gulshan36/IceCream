@@ -184,18 +184,25 @@ const ProductCategories = () => {
   }, [selectedCategory]);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary via-secondary to-accent">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-20 bg-gradient-to-br from-primary via-secondary to-accent relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg">
             Our Products
           </h2>
-          <div className="w-24 h-1 bg-white mx-auto"></div>
+          <div className="w-20 h-1 bg-white/80 mx-auto rounded-full shadow-lg"></div>
+          <p className="text-white/90 text-sm md:text-base mt-3">Select a category to explore our delicious products</p>
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8 mb-12">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-4 md:gap-6 mb-12">
           {categories.map((category) => {
             const IconComponent = category.icon;
             const isSelected = selectedCategory?.id === category.id;
@@ -203,18 +210,25 @@ const ProductCategories = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category)}
-                className={`group flex flex-col items-center gap-3 transition-all ${
-                  isSelected ? "scale-110" : "hover:scale-110"
+                className={`group flex flex-col items-center gap-2 transition-all duration-300 ${
+                  isSelected ? "scale-105" : "hover:scale-105"
                 }`}
               >
                 <div 
-                  className={`w-20 h-20 md:w-24 md:h-24 rounded-full ${category.color} flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-shadow ${
-                    isSelected ? "ring-4 ring-white ring-offset-4 ring-offset-transparent" : ""
+                  className={`relative w-16 h-16 md:w-20 md:h-20 rounded-2xl ${category.color} flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 ${
+                    isSelected 
+                      ? "ring-4 ring-white/50 shadow-2xl" 
+                      : "hover:ring-2 hover:ring-white/30"
                   }`}
                 >
-                  <IconComponent className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                  <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-lg" />
+                  {isSelected && (
+                    <div className="absolute inset-0 rounded-2xl bg-white/20 animate-pulse"></div>
+                  )}
                 </div>
-                <span className="text-sm md:text-base font-semibold text-white text-center">
+                <span className={`text-xs md:text-sm font-semibold text-white text-center transition-all ${
+                  isSelected ? "scale-105" : ""
+                }`}>
                   {category.name}
                 </span>
               </button>

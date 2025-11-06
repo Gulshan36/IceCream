@@ -108,6 +108,16 @@ export default {
             transform: "translateY(-20px) rotate(3deg)"
           }
         },
+        "scale-in": {
+          "0%": {
+            opacity: "0",
+            transform: "scale(0.95)"
+          },
+          "100%": {
+            opacity: "1",
+            transform: "scale(1)"
+          }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -115,6 +125,7 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "slide-in": "slide-in 0.8s ease-out",
         "float": "float 4s ease-in-out infinite",
+        "scale-in": "scale-in 0.4s ease-out",
       },
     },
   },
