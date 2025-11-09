@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
 
 interface Product {
   name: string;
@@ -24,6 +25,7 @@ interface ProductCarouselProps {
 const ProductCarousel = ({ category, onClose, categoryColor }: ProductCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { addToCart } = useCart();
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -97,10 +99,25 @@ const ProductCarousel = ({ category, onClose, categoryColor }: ProductCarouselPr
                         />
                       ))}
                     </div>
-                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 md:px-6 py-2 md:py-3 w-fit shadow-lg">
-                      <p className="text-xl md:text-2xl lg:text-3xl font-bold">
-                        {product.price}
-                      </p>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 md:px-6 py-2 md:py-3 w-fit shadow-lg">
+                        <p className="text-xl md:text-2xl lg:text-3xl font-bold">
+                          {product.price}
+                        </p>
+                      </div>
+                      <Button
+                        onClick={() => addToCart({
+                          id: `${category.name}-${product.name}`,
+                          name: product.name,
+                          price: parseInt(product.price.replace(/[^0-9]/g, '')),
+                          image: product.image,
+                          category: category.name,
+                        })}
+                        className="bg-white hover:bg-white/90 text-primary rounded-full shadow-lg font-semibold"
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Add to Cart
+                      </Button>
                     </div>
                   </div>
 

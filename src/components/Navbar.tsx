@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Facebook, Instagram, Youtube, Search } from "lucide-react";
+import CartSheet from "./CartSheet";
 
 const Navbar = () => {
   const location = useLocation();
@@ -10,6 +11,8 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/menu", label: "Our Products" },
     { path: "/about", label: "About Us" },
+    { path: "/about", label: "Careers" },
+    { path: "/about", label: "Media & News" },
     { path: "/contact", label: "Contact Us" },
   ];
   
@@ -49,8 +52,8 @@ const Navbar = () => {
             ))}
           </div>
           
-          {/* Social Icons */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Social Icons & Actions */}
+          <div className="hidden md:flex items-center gap-3">
             <a 
               href="#" 
               className="text-white hover:opacity-80 transition-opacity"
@@ -78,6 +81,9 @@ const Navbar = () => {
             >
               <Search className="w-5 h-5" />
             </button>
+            <div className="ml-2">
+              <CartSheet />
+            </div>
           </div>
         </div>
       </div>
