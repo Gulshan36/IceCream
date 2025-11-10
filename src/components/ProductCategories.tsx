@@ -174,14 +174,16 @@ const categories = [
 ];
 
 const ProductCategories = () => {
-  const [selectedCategory, setSelectedCategory] = useState<typeof categories[0] | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<typeof categories[0] | null>(categories[0]);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (selectedCategory && carouselRef.current) {
+    // Only scroll if user has manually selected a category
+    if (selectedCategory && carouselRef.current && hasUserInteracted) {
       carouselRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, hasUserInteracted]);
 
   return (
     <section className="py-16 md:py-20 bg-gradient-to-br from-primary via-secondary to-accent relative overflow-hidden">
@@ -209,7 +211,10 @@ const ProductCategories = () => {
             return (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setHasUserInteracted(true);
+                }}
                 className={`group flex flex-col items-center gap-2 transition-all duration-300 ${
                   isSelected ? "scale-105" : "hover:scale-105"
                 }`}

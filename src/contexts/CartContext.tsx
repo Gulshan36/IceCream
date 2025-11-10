@@ -31,8 +31,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       
       if (existingItem) {
         toast({
-          title: "Updated cart",
-          description: `${item.name} quantity increased`,
+          title: "🛒 Cart Updated!",
+          description: `${item.name} quantity increased to ${existingItem.quantity + 1}`,
+          className: "bg-gradient-to-r from-primary to-secondary text-white border-white/20",
         });
         return prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
@@ -40,18 +41,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       
       toast({
-        title: "Added to cart",
-        description: `${item.name} has been added to your cart`,
+        title: "✨ Added to Cart!",
+        description: `${item.name} (₹${item.price}) is ready for checkout`,
+        className: "bg-gradient-to-r from-green-500 to-emerald-600 text-white border-white/20",
       });
       return [...prevItems, { ...item, quantity: 1 }];
     });
   };
 
   const removeFromCart = (id: string) => {
+    const removedItem = items.find((item) => item.id === id);
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
     toast({
-      title: "Removed from cart",
-      description: "Item has been removed from your cart",
+      title: "🗑️ Removed from Cart",
+      description: `${removedItem?.name || "Item"} has been removed`,
+      className: "bg-gradient-to-r from-red-500 to-rose-600 text-white border-white/20",
     });
   };
 
@@ -69,10 +73,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const clearCart = () => {
+    const itemCount = getTotalItems();
     setItems([]);
     toast({
-      title: "Cart cleared",
-      description: "All items have been removed from your cart",
+      title: "🧹 Cart Cleared",
+      description: `${itemCount} item${itemCount !== 1 ? 's' : ''} removed from your cart`,
+      className: "bg-gradient-to-r from-orange-500 to-amber-600 text-white border-white/20",
     });
   };
 

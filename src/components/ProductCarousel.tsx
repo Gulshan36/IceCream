@@ -50,6 +50,19 @@ const ProductCarousel = ({ category, onClose, categoryColor }: ProductCarouselPr
     };
   }, [emblaApi]);
 
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 5000); // 5 seconds
+
+    return () => {
+      clearInterval(autoplay);
+    };
+  }, [emblaApi]);
+
   return (
     <div className={`w-full ${categoryColor} rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl animate-scale-in border-4 border-white/20 backdrop-blur-sm relative`}>
       {/* Decorative leaf elements */}

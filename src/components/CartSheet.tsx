@@ -10,18 +10,24 @@ const CartSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/20">
+        <Button variant="ghost" size="icon" className="relative text-gray-900 hover:bg-primary/10 hover:text-primary">
           <ShoppingCart className="w-5 h-5" />
           {getTotalItems() > 0 && (
             <Badge 
-              className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-destructive text-white border-2 border-white"
+              className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] font-bold border-2"
+              style={{ 
+                backgroundColor: '#ef4444', 
+                color: 'white',
+                borderColor: 'white',
+                boxShadow: '0 2px 8px rgba(239, 68, 68, 0.6)'
+              }}
             >
               {getTotalItems()}
             </Badge>
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full sm:max-w-lg">
+      <SheetContent className="w-full sm:max-w-screen-sm">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <ShoppingCart className="w-5 h-5" />
